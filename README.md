@@ -50,7 +50,7 @@ JanSeva is India’s first **centralized platform** that connects NGOs, donors, 
 ---
 
 ## 🔑 Core Values  
-- **Trust & Transparency** – Every NGO verified via **manual checks + NGO Darpan Portal**.  
+- **Trust & Transparency** – Every NGO verified via **manual checks + Government's NGO Darpan Portal**.  
 - **Accessibility** – Easy search, clear categories, and verified opportunities.  
 - **Impact Tracking** – Showcasing NGOs’ past, current, and future work.  
 - **Recognition** – Every donor/volunteer gets a **certificate of contribution**.  
