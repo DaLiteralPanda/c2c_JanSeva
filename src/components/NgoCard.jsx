@@ -1,26 +1,29 @@
-import { Card, Image, Text, Badge, Button, Group } from '@mantine/core';
-import { Link } from 'react-router-dom'; // <-- 1. IMPORT LINK
+import { Card, Image, Text, Title, Badge } from '@mantine/core';
+import classes from './NgoCard.module.css';
 
-// 2. ACCEPT THE 'id' PROP
-export function NgoCard({ id, image, name, description, category }) {
+// The new component structure
+export function NgoCard({ image, name, description, location, category}) {
   return (
-    <Card shadow="sm" padding="lg" radius="md" withBorder>
-      {/* ... Card.Section and Group are the same ... */}
-      <Card.Section>
-        <Image src={image} height={160} alt={name} />
+    <Card p="lg" radius="md" className={classes.card}>
+      <Card.Section className={classes.imageSection}>
+        <Image src={image} height={250} alt={name} radius="md" />
       </Card.Section>
-      <Group position="apart" mt="md" mb="xs">
-        <Text weight={500}>{name}</Text>
-        <Badge color="green" variant="light">{category}</Badge>
-      </Group>
-      <Text size="sm" color="dimmed">{description}</Text>
 
-      {/* 3. WRAP THE BUTTON WITH THE LINK */}
-      <Link to={`/ngo/${id}`} style={{ textDecoration: 'none' }}>
-        <Button variant="light" color="blue" fullWidth mt="md" radius="md">
-          Learn More
-        </Button>
-      </Link>
+      <Badge color="#6d381fff" variant="light" mt="xl" className={classes.badge}>
+        {category}
+      </Badge>
+
+      <Title order={1} className={classes.title} mt="md">
+        {name}
+      </Title>
+
+      <Text className={classes.description}>
+        {description}
+      </Text>
+
+      <Text className={classes.description}>
+        Located in {location}
+      </Text>
     </Card>
   );
 }

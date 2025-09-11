@@ -29,9 +29,9 @@
 //   );
 // }
 
-import { Container, Group, TextInput, Avatar, ActionIcon, rem, Burger, Drawer, Stack } from '@mantine/core';
+import { Container, Group, TextInput, Avatar, ActionIcon, rem, Burger, Drawer, Stack, Popover, Button, Checkbox, SimpleGrid} from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks'; // We'll use this for the mobile drawer
-import { IconSearch } from '@tabler/icons-react';
+import { IconSearch, IconFilter } from '@tabler/icons-react';
 import { Link } from 'react-router-dom';
 import classes from './NavBar.module.css';
 
@@ -40,58 +40,58 @@ const navLinks = [
   { link: '/about', label: 'About Us' },
 ];
 
-export function Navbar() {
-  // 1. Add a disclosure hook to manage the mobile drawer's open/close state
-  const [opened, { toggle, close }] = useDisclosure(false);
+export function Navbar({ searchTerm, setSearchTerm, selectedCategories, setSelectedCategories, allCategories }) {
+  const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
+  
+  const items = navLinks.map((link) => ( <Link to={link.link} key={link.label} className={classes.link} onClick={closeDrawer}>{link.label}</Link> ));
 
-  const items = navLinks.map((link) => (
-    <Link to={link.link} key={link.label} className={classes.link} onClick={close}>
-      {link.label}
-    </Link>
-  ));
+  // 2. Create the Popover content here for reuse
+  const filterPopover = (
+    <Popover width={500} trapFocus position="bottom-end" withArrow shadow="md">
+      <Popover.Target>
+        <Button variant="subtle" color="gray" rightIcon={<IconFilter size={16} />} mr="xs">
+          Categories
+        </Button>
+      </Popover.Target>
+      <Popover.Dropdown>
+        <Checkbox.Group label="Filter by cause" value={selectedCategories} onChange={setSelectedCategories} sx={{ maxHeight: 300, overflowY: 'auto' }}>
+          <SimpleGrid cols={2} mt="xs">
+            {allCategories.map((category) => ( <Checkbox key={category} value={category} label={category} /> ))}
+          </SimpleGrid>
+        </Checkbox.Group>
+        <Button fullWidth mt="md" variant="light" onClick={() => setSelectedCategories([])}>
+          Clear Filters
+        </Button>
+      </Popover.Dropdown>
+    </Popover>
+  );
 
   return (
     <header className={classes.header}>
       <Container size="xl" className={classes.inner}>
-        {/* 2. This entire group is now visible ONLY on screens larger than 'sm' */}
         <Group justify="space-between" style={{ flex: 1 }} visibleFrom="sm">
-          {/* Left Section: Navigation Links */}
           <Group gap={50}>{items}</Group>
-
-          {/* Center Section: Search Bar */}
+          {/* 3. This is the advanced search bar, now in the navbar */}
           <TextInput
             radius="xl"
             size="md"
             placeholder="Search NGOs"
-            leftSection={<IconSearch style={{ width: rem(18), height: rem(18) }} stroke={1.5} className={classes.search}/>}
+            leftSection={<IconSearch style={{ width: rem(18), height: rem(18) }} stroke={1.5} />}
             className={classes.search}
+            value={searchTerm}
+            onChange={(event) => setSearchTerm(event.currentTarget.value)}
+            rightSection={filterPopover}
+            rightSectionWidth={120}
           />
-
-          {/* Right Section: Profile Icon */}
           <ActionIcon variant="transparent" size={64} radius="xl">
-            <Avatar src="../../public/profile_icon.png" alt="User profile" color="dark" radius="xl" size={64}/>
+            <Avatar src="../../public/profile_icon.png" alt="User profile" radius="xl" size={64}/>
           </ActionIcon>
         </Group>
-
-        {/* 3. The Burger (hamburger menu) is ONLY visible on screens smaller than 'sm' */}
-        <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
+        <Burger opened={drawerOpened} onClick={toggleDrawer} hiddenFrom="sm" size="sm" />
       </Container>
-
-      {/* 4. The Drawer component for the mobile menu */}
-      <Drawer
-        opened={opened}
-        onClose={close}
-        title="Menu"
-        padding="md"
-        size="md"
-        hiddenFrom="sm" // Also hidden on larger screens
-      >
-        <Stack gap="lg">
-            {items}
-            <ActionIcon variant="transparent" size="xl" radius="xl">
-                <Avatar src={null} alt="User profile" color="dark" radius="xl" />
-            </ActionIcon>
-        </Stack>
+      {/* Drawer can also be updated to include filters if desired */}
+      <Drawer opened={drawerOpened} onClose={closeDrawer} title="Menu" padding="md" size="md" hiddenFrom="sm">
+        <Stack gap="lg">{items}</Stack>
       </Drawer>
     </header>
   );
