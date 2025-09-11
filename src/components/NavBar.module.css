@@ -25,6 +25,17 @@
   }
 }
 
+.logoLink {
+  text-decoration: none; /* Removes the underline from the link */
+}
+
+.title {
+  font-family: 'Merriweather', sans-serif;
+  font-weight: 700;
+  font-size: 64px !important; 
+  color: #7F4120;
+}
+
 .inner {
   height: 100%;
   display: flex;
