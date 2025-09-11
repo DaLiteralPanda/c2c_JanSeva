@@ -8,7 +8,7 @@ export function AuthPage() {
 
   return (
     <div className={classes.wrapper}>
-      <Paper className={classes.form} radius="md" p="xl">
+      <Paper className={classes.form} radius="xl" p="xl">
         {/* 2. Mantine's SegmentedControl is perfect for the toggle */}
         <SegmentedControl
           fullWidth
@@ -21,18 +21,42 @@ export function AuthPage() {
             { label: 'Signup', value: 'signup' },
           ]}
           mb="xl"
+          color="#EE7D62"
         />
 
-        <TextInput label="Email" placeholder="your@email.com" required />
-        <PasswordInput label="Password" placeholder="Your password" required mt="md" />
+        <TextInput
+          label="Email"
+          placeholder="your@email.com"
+          required
+          // Add these labelProps to align the "Email" text to the left
+          labelProps={{ style: { textAlign: 'left', width: '100%' } }}
+          radius="md"
+        />
+        <PasswordInput
+          label="Password"
+          placeholder="Your password"
+          required
+          mt="md"
+          // Add these labelProps here as well
+          labelProps={{ style: { textAlign: 'left', width: '100%' } }}
+          radius="md"
+        />
         
         {/* We can add another field for 'Confirm Password' if signing up */}
         {authMode === 'signup' && (
-            <PasswordInput label="Confirm Password" placeholder="Confirm password" required mt="md" />
+            <PasswordInput
+              label="Confirm Password"
+              placeholder="Confirm password"
+              required
+              mt="md"
+              // And here for the conditional field
+              labelProps={{ style: { textAlign: 'left', width: '100%' } }}
+              radius="md"
+            />
         )}
 
         {/* 3. The button text changes based on the authMode state */}
-        <Button fullWidth mt="xl" size="md" radius="xl">
+        <Button fullWidth mt="xl" size="md" radius="xl" color="#EE7D62">
           {authMode === 'signup' ? 'Signup' : 'Login'}
         </Button>
       </Paper>

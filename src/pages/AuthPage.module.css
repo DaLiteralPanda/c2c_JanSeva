@@ -1,16 +1,16 @@
 .wrapper {
-  /* This makes the container take up the full screen height */
-  min-height: calc(100vh - 80px); /* 80px is your navbar height */
-  
-  /* These three lines are the magic for centering */
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 80vh;
 }
 
 .form {
-  /* This is the Glassmorphism Effect */
-  background: rgba(255, 255, 255, 0.2); /* Semi-transparent background */
+  /* Add !important to your background or background-color property */
+  background: rgba(206, 174, 137, 0.58) !important;
+  
+  color: #5C4033;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px); /* For Safari */
   border: 1px solid rgba(255, 255, 255, 0.18);
@@ -22,3 +22,9 @@
   padding: var(--mantine-spacing-xl);
   border-radius: var(--mantine-radius-md);
 }
+
+/* .form label {
+    text-align: left;
+    display: block; 
+    margin-bottom: 0.25rem; 
+} */

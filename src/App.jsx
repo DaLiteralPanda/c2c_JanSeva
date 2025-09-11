@@ -1,6 +1,6 @@
 import { AppShell, MantineProvider } from '@mantine/core';
 import { Navbar } from './components/Navbar';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import { HomePage } from './pages/HomePage'; // Your HomePage component
 import { useState } from 'react';
 
@@ -16,9 +16,13 @@ export default function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategories, setSelectedCategories] = useState([]);
 
+  // 3. Get the current location
+  const location = useLocation();
+  const isAuthPage = location.pathname === '/login';
+
   return (
     <MantineProvider withGlobalStyles withNormalizeCSS theme={{ colorScheme: 'dark' }}>
-    // AppShell provides the main layout structure
+    {/* AppShell provides the main layout structure */}
     <AppShell
       header={{ height: 80 }} // Set the height to match your navbar
       padding="md"
