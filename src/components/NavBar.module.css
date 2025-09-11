@@ -1,0 +1,74 @@
+.header {
+  height: 80px; /* Increased height to match the design */
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  
+  /* --- NEW BACKGROUND STYLES --- */
+  background-image: url('../../public/nav-bg.png'); /* Image */
+  background-size: cover;
+  background-position: center;
+
+  /* Drop Shadow */
+    box-shadow: 0px 10px 4px 0px rgba(0, 0, 0, 0.37), 
+                inset 8px 8px 4px 3px rgba(0, 0, 0, 0.15);
+}
+
+.search {
+  flex-grow: 0.3;
+  transition: transform 0.2s ease-in-out;
+
+  /* Use a comma to apply the same style to both states */
+  &:hover,
+  &:focus-within {
+    transform: scale(1.07);
+  }
+}
+
+.logoLink {
+  text-decoration: none; /* Removes the underline from the link */
+}
+
+.title {
+  font-family: 'Merriweather', sans-serif;
+  font-weight: 700;
+  font-size: 64px !important; 
+  color: #7F4120;
+}
+
+.inner {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logoLink {
+  text-decoration: none;
+  color: inherit;
+}
+
+.link {
+  display: block;
+  line-height: 1;
+  padding: 8px 12px;
+  border-radius: var(--mantine-radius-sm);
+  text-decoration: none;
+  /* color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-0)); */
+  color: #5C4033;
+  font-size: var(--mantine-font-size-sm);
+
+  font-family: "Poppins", sans-serif; /* Use the name of the font you chose */
+  font-size: 1.5rem; /* Adjust this value to make it bigger or smaller */
+  font-weight: 500;
+
+  transition: transform 0.2s ease-in-out;
+
+  &:hover {
+    /* background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-6)); */
+
+    transform: scale(1.2);
+
+  }
+}
