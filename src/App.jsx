@@ -1,17 +1,22 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { AppShell, MantineProvider } from '@mantine/core';
+import { Navbar } from './components/Navbar';
+import { Outlet } from 'react-router-dom';
 
-import { Button, Stack, Title } from '@mantine/core';
-
-function App() {
+export default function App() {
   return (
-    <Stack align="center" mt={50}>
-      <Title>Welcome to JanSeva!</Title>
-      <Button>This is a Mantine Button</Button>
-    </Stack>
+    <MantineProvider withGlobalStyles withNormalizeCSS theme={{ colorScheme: 'dark' }}>
+      <AppShell
+        header={{ height: 60 }}
+        padding="md"
+      >
+        <AppShell.Header p="md">
+          <Navbar />
+        </AppShell.Header>
+
+        <AppShell.Main>
+          <Outlet />
+        </AppShell.Main>
+      </AppShell>
+    </MantineProvider>
   );
 }
-
-export default App;

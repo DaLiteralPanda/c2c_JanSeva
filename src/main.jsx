@@ -1,31 +1,30 @@
 import React from 'react';
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.jsx'
-
-// Mantine
-import { createTheme, MantineProvider } from '@mantine/core';
-
-// 1. Import Mantine's base styles -- VERY IMPORTANT!
+import ReactDOM from 'react-dom/client';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import App from './App.jsx';
+import { HomePage } from './pages/HomePage.jsx';
+import { NgoDetailPage } from './pages/NgoDetailPage.jsx';
+import { AboutPage } from './pages/AboutPage.jsx'; 
+import { ContactPage } from './pages/ContactPage.jsx'; 
+import './index.css';
 import '@mantine/core/styles.css';
 
-const theme = createTheme({
-  /** Put your mantine theme override here */
-});
+// Define the routes for our application
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />, // App is now the main layout
+    children: [
+      { index: true, element: <HomePage /> },
+      { path: "ngo/:id", element: <NgoDetailPage /> },
+      { path: "about", element: <AboutPage /> },
+      { path: "contact", element: <ContactPage /> },
+    ],
+  },
+]);
 
-const rootElement = document.getElementById('root');
-const root = createRoot(rootElement);
-
-root.render(
+ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    {/* 2. Wrap your entire App component with the MantineProvider */}
-    <MantineProvider withGlobalStyles withNormalizeCSS>
-      <App />
-    </MantineProvider>
-  </React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>,
 );
-
-
-
-
