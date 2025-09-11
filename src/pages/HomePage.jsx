@@ -3,14 +3,21 @@ import { useOutletContext } from 'react-router-dom';
 import { NgoCard } from '../components/NgoCard'; // Make sure this path is correct
 import { useState } from 'react';
 
-// The same dummy data we had before
+// The full list of NGOs. You can move this to a separate data.js file later.
 const dummyNgoData = [
-  { id: 1, name: 'Bright Futures Foundation', description: 'Providing education and resources to underprivileged children.', image: 'https://via.placeholder.com/400x200.png?text=Education', category: 'Education' },
-  { id: 2, name: 'Green Earth Alliance', description: 'Focused on reforestation projects and environmental conservation.', image: 'https://via.placeholder.com/400x200.png?text=Environment', category: 'Environment' },
-  { id: 3, name: 'Healthcare Heroes', description: 'Delivering medical supplies and aid to remote villages.', image: 'https://via.placeholder.com/400x200.png?text=Healthcare', category: 'Healthcare' },
-  { id: 4, name: 'Senior Support Services', description: 'Offering companionship and care for the elderly.', image: 'https://via.placeholder.com/400x200.png?text=Elderly+Care', category: 'Elderly Care' },
-  { id: 5, name: 'Women Empowerment Hub', description: 'Providing skill training and support for women entrepreneurs.', image: 'https://via.placeholder.com/400x200.png?text=Empowerment', category: 'Empowerment' },
-  { id: 6, name: 'Animal Angels Rescue', description: 'Rescuing and rehoming stray animals in the city.', image: 'https://via.placeholder.com/400x200.png?text=Animal+Welfare', category: 'Animal Welfare' },
+  { id: 1, name: 'Bright Futures Foundation', description: 'Providing education and resources to underprivileged children.', image: 'https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png', category: 'Child Welfare & Education', location: 'Parel, Mumbai, Maharashtra' },
+  { id: 2, name: 'Green Earth Alliance', description: 'Focused on reforestation projects and environmental conservation.', image: 'https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png', category: 'Environment & Climate Action', location: 'Parel, Mumbai, Maharashtra' },
+  { id: 3, name: 'Healthcare Heroes', description: 'Delivering medical supplies and aid to remote villages.', image: 'https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png', category: 'Healthcare & Nutrition', location: 'Parel, Mumbai, Maharashtra' },
+  // ... and the rest of your dummy data ..., location: 'Parel, Mumbai, Maharashtra'
+  { id: 16, name: 'Aman Shanti Mission', description: 'Promoting peace and spiritual harmony through community events.', image: 'https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png', category: 'Peace, Harmony & Spiritual Growth', location: 'Parel, Mumbai, Maharashtra' },
+  { id: 17, name: 'Kala Sanskriti Foundation', description: 'Promoting traditional Indian arts and supporting local artisans.', image: 'https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png', category: 'Arts, Culture & Heritage', location: 'Parel, Mumbai, Maharashtra' },
+  { id: 18, name: 'Udyog Pathshala', description: 'Equipping unemployed youth with vocational skills for a better future.', image: 'https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png', category: 'Livelihood & Skill Development', location: 'Parel, Mumbai, Maharashtra' },
+  { id: 19, name: 'Udyog Pathshala', description: 'Equipping unemployed youth with vocational skills for a better future.', image: 'https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png', category: 'Livelihood & Skill Development', location: 'Parel, Mumbai, Maharashtra' },
+  { id: 20, name: 'Udyog Pathshala', description: 'Equipping unemployed youth with vocational skills for a better future.', image: 'https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png', category: 'Livelihood & Skill Development', location: 'Parel, Mumbai, Maharashtra' },
+  { id: 21, name: 'Udyog Pathshala', description: 'Equipping unemployed youth with vocational skills for a better future.', image: 'https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png', category: 'Livelihood & Skill Development', location: 'Parel, Mumbai, Maharashtra' },
+  { id: 22, name: 'Udyog Pathshala', description: 'Equipping unemployed youth with vocational skills for a better future.', image: 'https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png', category: 'Livelihood & Skill Development', location: 'Parel, Mumbai, Maharashtra' },
+  { id: 23, name: 'Udyog Pathshala', description: 'Equipping unemployed youth with vocational skills for a better future.', image: 'https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png', category: 'Livelihood & Skill Development', location: 'Parel, Mumbai, Maharashtra' },
+  { id: 24, name: 'Udyog Pathshala', description: 'Equipping unemployed youth with vocational skills for a better future.', image: 'https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png', category: 'Livelihood & Skill Development', location: 'Parel, Mumbai, Maharashtra'}
 ];
 
 export function HomePage() {
@@ -19,40 +26,29 @@ export function HomePage() {
 
   // 2. The full, unfiltered list of NGOs is stored here
   const [ngos, setNgos] = useState(dummyNgoData);
-  // 1. Create a new state to hold the search term
-  const [searchTerm, setSearchTerm] = useState('');
 
-  // 2. Create a new list of NGOs that is filtered based on the search term
-  const filteredNgos = ngos.filter((ngo) =>
-    ngo.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    ngo.category.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // 3. This logic filters the full list based on the values from the navbar
+  const filteredNgos = ngos
+    .filter((ngo) =>
+      // First, filter by the search term
+      ngo.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      ngo.category.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .filter((ngo) => {
+      // Then, filter by any selected categories
+      if (selectedCategories.length === 0) return true; // If no categories are checked, show all
+      return selectedCategories.includes(ngo.category);
+    });
 
   return (
     <>
-      {/* We've moved the Hero section's code here */}
-      <Container size="md" py="xl" style={{ textAlign: 'center' }}>
-        <Title
-          order={1}
-          sx={{ fontSize: '2.5rem', fontWeight: 800 }}
-        >
+      <Container size="xl" py="xl" style={{ textAlign: 'center' }}>
+        <Title order={1} sx={{ fontSize: '2.5rem', fontWeight: 800 }}>
           Empowering NGOs, Connecting Hearts
         </Title>
         <Text color="dimmed" size="lg" maw={580} mx="auto" mt="xl">
           Discover, connect with, and support verified non-governmental organizations. Your single platform for making a real impact.
         </Text>
-        <TextInput
-          placeholder="Search NGOs by name or cause..."
-          size="lg"
-          icon={<IconSearch size={18} stroke={1.5} />}
-          radius="xl"
-          mt="xl"
-          mx="auto"
-          maw={580}
-          // 3. Connect the input to our state
-          value={searchTerm}
-          onChange={(event) => setSearchTerm(event.currentTarget.value)}
-        />
       </Container>
 
       {/* 4. This section displays the title and the grid of cards */}
@@ -61,12 +57,9 @@ export function HomePage() {
         <SimpleGrid
           cols={3}
           spacing="xl"
-          breakpoints={[
-            { maxWidth: 'md', cols: 2, spacing: 'md' },
-            { maxWidth: 'sm', cols: 1, spacing: 'sm' },
-          ]}
+          breakpoints={[{ maxWidth: 'md', cols: 2 }, { maxWidth: 'sm', cols: 1 }]}
         >
-          {/* 4. Map over the NEW filtered list */}
+          {/* We map over the FINAL filteredNgos list to render the cards */}
           {filteredNgos.map((ngo) => (
             <NgoCard
               key={ngo.id}
