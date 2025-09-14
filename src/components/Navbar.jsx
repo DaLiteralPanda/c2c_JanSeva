@@ -31,7 +31,7 @@ export function Navbar({ searchTerm, setSearchTerm, selectedCategories, setSelec
             {allCategories.map((category) => ( <Checkbox key={category} value={category} label={category} /> ))}
           </SimpleGrid>
         </Checkbox.Group>
-        <Button fullWidth mt="md" variant="light" onClick={() => setSelectedCategories([])}>
+        <Button fullWidth mt="md" onClick={() => setSelectedCategories([])} color='#bd7c5eff'>
           Clear Filters
         </Button>
       </Popover.Dropdown>

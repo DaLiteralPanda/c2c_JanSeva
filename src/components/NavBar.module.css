@@ -56,7 +56,7 @@
   border-radius: var(--mantine-radius-sm);
   text-decoration: none;
   /* color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-0)); */
-  color: #5C4033;
+  color: white;
   font-size: var(--mantine-font-size-sm);
 
   font-family: "Poppins", sans-serif; /* Use the name of the font you chose */

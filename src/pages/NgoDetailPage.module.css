@@ -1,0 +1,42 @@
+.mainTitle {
+  font-family: 'Poppins', sans-serif;
+  color: var(--mantine-color-brand-8);
+  font-size: 2.5rem;
+  font-weight: 800;
+}
+
+.sectionTitle {
+  font-family: 'Poppins', sans-serif;
+  color: var(--mantine-color-brand-7);
+  font-weight: 700;
+  border-bottom: 2px solid var(--mantine-color-brand-2);
+  padding-bottom: 8px;
+  margin-bottom: var(--mantine-spacing-sm);
+}
+
+.helpBox {
+  background-color: var(--mantine-color-gray-0);
+}
+
+.donateButton {
+  background-color: #EF5350; /* Red color from the design */
+  color: white;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.donateButton:hover {
+  background-color: #E53935;
+}
+
+.volunteerButton {
+  background-color: #FFE0B2; /* Tan color from the design */
+  color: var(--mantine-color-brand-9);
+  border-color: #FFB74D;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.volunteerButton:hover {
+  background-color: #FFCC80;
+}

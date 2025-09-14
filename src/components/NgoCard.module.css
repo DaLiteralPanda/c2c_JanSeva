@@ -42,3 +42,9 @@
   color: #5C4033;
   margin-top: var(--mantine-spacing-xs);
 }
+
+.cardLink {
+  text-decoration: none;
+  color: inherit;
+}
+
